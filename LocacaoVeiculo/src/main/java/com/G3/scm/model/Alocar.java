@@ -9,15 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.G3.scm.servico.ClienteServico;
-import com.G3.scm.servico.VeiculoServico;
 
 @Entity
 public class Alocar {
@@ -26,11 +23,15 @@ public class Alocar {
 	private Long id;
 	@CPF(message = "CPF invalido")
 	private String clienteCpf;
-	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	@NotNull
 	@Size(min = 7, max = 7, message = "Placa invalida")
 	private String veiculoPlaca;
-	
+	@ManyToOne
+	@JoinColumn(name = "veiculo_id")
+	private Veiculo veiculo;
 	private boolean situacao;
 	private String dtInicioFormat;
 	@NotNull
@@ -111,6 +112,18 @@ public class Alocar {
 	}
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 	
 	

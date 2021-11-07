@@ -38,12 +38,12 @@ public class AlocarServicoI implements AlocarServico {
 
 	public ModelAndView saveOrUpdate(Alocar alocacao) {
 		ModelAndView modelAndView = new ModelAndView("consultarAlocacoes");
-		
-		
 		try {
 			Cliente cliente = servicoC.findByCpf(alocacao.getClienteCpf());
 			Veiculo veiculo = servicoV.findByPlaca(alocacao.getVeiculoPlaca());
 			if(cliente != null || veiculo != null) {
+				alocacao.setCliente(cliente);
+				alocacao.setVeiculo(veiculo);
 				alocacao.setDtInicio(alocacao.getDtInicioFormat());
 				alocacao.setDtEntrega(alocacao.getDtEntregaFormat());
 				int verifDataEntrega =  alocacao.getDtEntrega().getDayOfYear(); 
@@ -74,7 +74,6 @@ public class AlocarServicoI implements AlocarServico {
 				modelAndView.setViewName("alocar");
 				modelAndView.addObject("message", "Cliente ou veiculo não existe");
 			}
-			
 			
 		} catch (Exception e) {
 			modelAndView.setViewName("alocar");
