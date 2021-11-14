@@ -5,14 +5,30 @@
 	<link rel="stylesheet" th:href="@{/css/cadasClienteStyle.css}" />
 	<link rel="stylesheet" th:href="@{/css/allStyle.css}" />
 	<title>Cadastrar usuario</title>
-	<script type="text/javascript"> function consulta() {window.open("/sig/clientes");} </script>
+	<script type="text/javascript"> 
+		
+		function verificaSenha(){
+			let senha = document.getElementById('senhaUsuario').value
+			let senhaConf = document.getElementById('senhaUsuarioConf').value
+			let botao = document.getElementById('confirmarCadastro')
+			let texto = document.getElementById('mesageSenha')
+			if(senha != senhaConf){
+				botao.disabled = true
+				texto.textContent = "A senha não está igual ao outro campo"
+			}
+			else{
+				botao.disabled = false
+				texto.textContent = ""
+			}
+		}
+	 </script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 	<div class="Menu">
 		<a th:href="@{/sig/menuCliente}" id="botaoVoltar"><button><img th:src="@{/images/setaVoltar.png}" /></button></a>
-		<h1>Cadastrar cliente</h1>
+		<h1>Cadastrar usuario</h1>
 		<div id="formulario">
 			<form action="#" th:action="@{/sig/cadastrarUsuario}" th:object="${usuario}" method="post">
 
@@ -25,11 +41,11 @@
 				<span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="textdanger" > </span><br><br>
 				
 				<label for="senhaUsuario">Senha:</label>  
-				<input type="password" th:field="*{senha}" id="senhaUsuario" placeholder="Senha">
+				<input type="password" th:field="*{senha}" id="senhaUsuario" placeholder="Senha" onblur="verificaSenha()">
 				<span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="textdanger"></span> <br><br>
 				
 				<label for="senhaUsuarioConf">Confirma senha:</label>  
-				<input type="password" id="senhaUsuarioConf" placeholder="Confirma senha">
+				<input type="password" id="senhaUsuarioConf" placeholder="Confirma senha" onblur="verificaSenha()">
 				<span id="mesageSenha"></span><br><br>
 				
 				<input type="radio" th:field="*{permissao}" id="adminUsuario" name="permissaoUsuario" value="ROLE_ADMIN" >

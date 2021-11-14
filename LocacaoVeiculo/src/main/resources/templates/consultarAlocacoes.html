@@ -46,6 +46,26 @@
 									
 								</div>
 							</td>
+							<script th:inline="javascript">
+								/*<![CDATA[*/
+								    
+								
+								    var situacao = /*[[${alocar.situacao}]]*/
+								
+								    
+								/*]]>*/
+								
+								function verificaSituacao(){
+									var botao = document.getElementsByClassName('btnDesalocar')
+									for(i = 0; i < botao.length; i++){
+										if(situacao == false){
+											botao[i].style.visibility = "hidden";
+										}
+									}
+								}
+								console.log(situacao)
+								verificaSituacao()
+							</script>
 						</tr>
 					</tbody>
 				</table>
