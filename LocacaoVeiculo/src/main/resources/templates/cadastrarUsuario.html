@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" th:href="@{/css/cadasClienteStyle.css}" />
+	<link rel="stylesheet" th:href="@{/css/allStyle.css}" />
+	<title>Cadastrar usuario</title>
+	<script type="text/javascript"> function consulta() {window.open("/sig/clientes");} </script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div class="Menu">
+		<a th:href="@{/sig/menuCliente}" id="botaoVoltar"><button><img th:src="@{/images/setaVoltar.png}" /></button></a>
+		<h1>Cadastrar cliente</h1>
+		<div id="formulario">
+			<form action="#" th:action="@{/sig/cadastrarUsuario}" th:object="${usuario}" method="post">
+
+				<label for="nomeUsuario">Nome: </label>
+				<input type="text" th:field="*{nome}" id="nomeUsuario" name="nomeUsuario" placeholder="Nome">
+				<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="textdanger" > </span> <br><br>
+				
+				<label for="loginUsuario">Nome de usuario: </label>
+				<input type="text" th:field="*{login}" id="loginUsuario" name="loginUsuario" placeholder="Login">
+				<span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="textdanger" > </span><br><br>
+				
+				<label for="senhaUsuario">Senha:</label>  
+				<input type="password" th:field="*{senha}" id="senhaUsuario" placeholder="Senha">
+				<span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="textdanger"></span> <br><br>
+				
+				<label for="senhaUsuarioConf">Confirma senha:</label>  
+				<input type="password" id="senhaUsuarioConf" placeholder="Confirma senha">
+				<span id="mesageSenha"></span><br><br>
+				
+				<input type="radio" th:field="*{permissao}" id="adminUsuario" name="permissaoUsuario" value="ROLE_ADMIN" >
+				<label for="adminUsuario">ADMIN</label> 
+				
+				<input type="radio" th:field="*{permissao}" id="userUsuario" name="permissaoUsuario" value="ROLE_USER" >
+				<label for="userUsuario">USER</label>     
+				<span th:if="${#fields.hasErrors('permissao')}" th:errors="*{permissao}" class="textdanger"></span> <br><br>
+				
+				<div id="botaoConfirma">
+					<input type="submit" value="Confirmar cadastro"id="confirmarCadastro" name="confirmarCadastro">
+				</div>
+			</form>
+			<h6 th:text="${message}" class="text-danger"></h6>
+		</div>
+	</div>
+</body>
+
+</html>
