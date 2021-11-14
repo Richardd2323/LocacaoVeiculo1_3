@@ -28,7 +28,7 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		logger.info(">>>>>> metodo configura http security executado");
-		http.csrf().disable().authorizeRequests().antMatchers("HttpMethod.GET", "/").permitAll()
+		http.csrf().disable().authorizeRequests().antMatchers("HttpMethod.GET", "/").hasAnyRole("ADMIN", "USER")
 				.antMatchers("HttpMethod.GET", "/sig/menuCliente").hasAnyRole("ADMIN", "USER")
 				.antMatchers("HttpMethod.GET", "/sig/cliente").hasAnyRole("ADMIN", "USER")
 				.antMatchers("HttpMethod.GET", "/sig/clientes").hasAnyRole("ADMIN", "USER")
