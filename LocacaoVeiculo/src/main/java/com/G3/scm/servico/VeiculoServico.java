@@ -12,7 +12,7 @@ public interface VeiculoServico {
 
 	public Veiculo findById(Long id);
 
-	public ModelAndView saveOrUpdate(Veiculo veiculo);
+	//public ModelAndView saveOrUpdate(Veiculo veiculo);
 
 	
 }

@@ -1,19 +1,22 @@
 package com.G3.scm.controller;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import com.G3.scm.model.Veiculo;
-import com.G3.scm.servico.VeiculoServico;
+import com.G3.scm.servico.VeiculoServicoI;
 
 @Controller
 @RequestMapping(path = "/sig")
@@ -21,7 +24,7 @@ public class VeiculoController {
 	Logger logger = LogManager.getLogger(VeiculoController.class);
 	
 	@Autowired
-	VeiculoServico servico;
+	VeiculoServicoI servico;
 
 	@GetMapping("/menuVeiculo")
 	public ModelAndView menuVeiculo() {
@@ -72,7 +75,25 @@ public class VeiculoController {
 		if (result.hasErrors()) {
 			modelAndView.setViewName("cadastrarVeiculo");
 		} else {
-			modelAndView = servico.saveOrUpdate(veiculo);
+			try {
+				modelAndView = servico.save(veiculo);
+			}
+			catch (HttpClientErrorException e) {
+				modelAndView.addObject("message", "Dados invalidos - 400 Bad Request");
+				modelAndView.setViewName("cadastrarVeiculo");
+			} catch (ConstraintViolationException e) {
+				modelAndView.addObject("message", "Dados invalidos - constraint violation");
+				modelAndView.setViewName("cadastrarVeiculo");
+			} catch (DataIntegrityViolationException e) {
+				modelAndView.addObject("message", "Dados invalidos - veiculo já cadastrado");
+				modelAndView.setViewName("cadastrarVeiculo");
+			} catch (Exception e) {
+				modelAndView = new ModelAndView("cadastrarVeiculo");
+				modelAndView.addObject("message", "Erro não esperado - contate o administrador ==>" + e.getMessage());
+				logger.error(">>>>> 5. erro nao esperado ==> " + e.getMessage());
+				logger.error(">>>>> 5. erro nao esperado ==> " + e.toString());
+			}
+			
 		}
 		return modelAndView;
 	}
@@ -92,7 +113,7 @@ public class VeiculoController {
 		umVeiculo.setCor(veiculo.getCor());
 		umVeiculo.setValorDiaria(veiculo.getValorDiaria());
 		umVeiculo.setAno(veiculo.getAno());
-		modelAndView = servico.saveOrUpdate(umVeiculo);
+		modelAndView = servico.save(umVeiculo);
 		return modelAndView;
 	}
 }

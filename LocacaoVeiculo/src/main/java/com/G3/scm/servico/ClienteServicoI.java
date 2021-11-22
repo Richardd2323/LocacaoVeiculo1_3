@@ -40,43 +40,29 @@ public class ClienteServicoI implements ClienteServico {
 		return clienteRepository.findById(id).get();
 	}
 
-	public ModelAndView saveOrUpdate(Cliente cliente) {
+	public ModelAndView save(Cliente cliente) {
 		ModelAndView modelAndView = new ModelAndView("consultarCliente");
 		cliente.setDtNascimento(cliente.getDtNascimentoFormat());
 		DateTime anoAtual = new DateTime();
 		int idade = anoAtual.getYear() - cliente.getDtNascimento().getYear();
-		try {
-			Endereco endereco = obtemEndereco(cliente.getCep());
-			
-			if (endereco != null && idade >= 18 ) {
-				cliente.setDataCadastro(new DateTime());
-				
-				endereco.setCpf(cliente.getCpf());
-				enderecoRepository.save(endereco);
-				cliente.setEndereco(endereco);
-				cliente.getEndereco().setNum(cliente.getNum());
-				
-				clienteRepository.save(cliente);
-				logger.info(">>>>>> 4. comando save executado  ");
-				modelAndView.addObject("clientes", clienteRepository.findAll());
-			}
-			
-			else {
-				modelAndView.setViewName("cadastrarCliente");
-				modelAndView.addObject("message", "Precisa ser maior de 18 Anos, Zé.");
-				logger.info(">>>>>> 5. Idade invalida ==> ");
-			}
-		} catch (Exception e) {
-			modelAndView.setViewName("cadastrarCliente");
-			if (e.getMessage().contains("could not execute statement")) {
-				modelAndView.addObject("message", "Dados invalidos - cliente já cadastrado.");
-				logger.info(">>>>>> 5. cliente ja cadastrado ==> " + e.getMessage());
-			}
-			else {
-				modelAndView.addObject("message", "Erro não esperado - contate o administrador");
-				logger.error(">>>>>> 5. erro nao esperado ==> " + e.getMessage());
-			}
+		Endereco endereco = obtemEndereco(cliente.getCep());
+		if (endereco != null && idade >= 18 ) {
+			cliente.setDataCadastro(new DateTime());
+			endereco.setCpf(cliente.getCpf());
+			enderecoRepository.save(endereco);
+			cliente.setEndereco(endereco);
+			cliente.getEndereco().setNum(cliente.getNum());
+			clienteRepository.save(cliente);
+			logger.info(">>>>>> 4. comando save executado  ");
+			modelAndView.addObject("clientes", clienteRepository.findAll());
 		}
+		
+		else {
+			modelAndView.setViewName("cadastrarCliente");
+			modelAndView.addObject("message", "Precisa ser maior de 18 Anos, Zé.");
+			logger.info(">>>>>> 5. Idade invalida ==> ");
+		}
+		
 		return modelAndView;
 	}
 	

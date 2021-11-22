@@ -13,7 +13,7 @@ public interface ClienteServico {
 
 	public Cliente findById(Long id);
 
-	public ModelAndView saveOrUpdate(Cliente cliente);
+	//public ModelAndView saveOrUpdate(Cliente cliente);
 
 	public Endereco obtemEndereco(String cep);
 }

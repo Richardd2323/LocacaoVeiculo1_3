@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
 @Entity
 public class Veiculo {
 	
@@ -33,6 +36,7 @@ public class Veiculo {
 	private String ano;
 	@NotNull
 	private float valorDiaria;
+	private String dataCadastro;
 	
 	public Veiculo() {}
 	
@@ -45,6 +49,8 @@ public class Veiculo {
 		this.ano = ano;
 		this.valorDiaria =valorDiaria;
 		this.locado = false;
+		DateTime dataAtual = new DateTime();
+		setDataCadastro(dataAtual);
 	}
 
 	public Long getId() {
@@ -112,7 +118,16 @@ public class Veiculo {
 		this.ano = ano;
 	}
 	
+	public String getDataCadastro() {
+		return dataCadastro;
+	}
 
+	public void setDataCadastro(DateTime dataAtual) {
+		org.joda.time.format.DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
+		this.dataCadastro = dataAtual.toString(fmt);
+		
+
+	}
 	
 	
 	

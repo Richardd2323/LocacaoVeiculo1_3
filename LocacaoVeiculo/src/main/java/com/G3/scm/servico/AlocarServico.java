@@ -12,10 +12,10 @@ public interface AlocarServico {
 	public Alocar findById(Long id);
 	
 
-	public ModelAndView saveOrUpdate(Alocar alocacao);
+	//public ModelAndView saveOrUpdate(Alocar alocacao);
 
 
-	public ModelAndView saveOrUpdate2(Alocar alocacao);
+	//public ModelAndView saveOrUpdate2(Alocar alocacao);
 
 
 	

@@ -34,22 +34,13 @@ public class VeiculoServicoI implements VeiculoServico {
 		return veiculoRepository.findById(id).get();
 	}
 
-	public ModelAndView saveOrUpdate(Veiculo veiculo) {
+	public ModelAndView save(Veiculo veiculo) {
 		ModelAndView modelAndView = new ModelAndView("consultarVeiculo");
-		try {
-			veiculoRepository.save(veiculo);
-			logger.info(">>>>>> 4. comando save executado  ");
-			modelAndView.addObject("veiculos", veiculoRepository.findAll());
-		} catch (Exception e) {
-			modelAndView.setViewName("cadastrarVeiculo");
-			if (e.getMessage().contains("could not execute statement")) {
-				modelAndView.addObject("message", "Dados invalidos - veiculo já cadastrado.");
-				logger.info(">>>>>> 5. veiculo ja cadastrado ==> " + e.getMessage());
-			} else {
-				modelAndView.addObject("message", "Erro não esperado - contate o administrador");
-				logger.error(">>>>>> 5. erro nao esperado ==> " + e.getMessage());
-			}
-		}
+		veiculo.setDataCadastro(new DateTime());
+		veiculoRepository.save(veiculo);
+		logger.info(">>>>>> 4. comando save executado  ");
+		modelAndView.addObject("veiculos", veiculoRepository.findAll());
+		 
 		return modelAndView;
 	}
 
