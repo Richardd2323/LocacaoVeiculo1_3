@@ -163,6 +163,15 @@ public class Cliente {
 	public void setAlocacao(boolean alocacao) {
 		this.alocacao = alocacao;
 	}
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", cep=" + cep
+				+ ", endereco=" + endereco + ", telefone=" + telefone + ", num=" + num
+				+ ", dtNascimento=" + dtNascimento + ", dtNascimentoFormat=" + dtNascimentoFormat + ", dataCadastro="
+				+ dataCadastro + "]";
+	}
+	
+	
 	
 	
 

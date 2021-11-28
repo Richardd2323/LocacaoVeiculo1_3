@@ -90,7 +90,7 @@ public class AlocarController {
 				modelAndView.setViewName("alocar");
 			} catch (Exception e) {
 				modelAndView = new ModelAndView("alocar");
-				modelAndView.addObject("message", "Erro não esperado - contate o administrador ==>" + e.getMessage());
+				modelAndView.addObject("message", "Cliente ou veiculo não existe");
 				logger.error(">>>>> 5. erro nao esperado ==> " + e.getMessage());
 				logger.error(">>>>> 5. erro nao esperado ==> " + e.toString());
 			}
