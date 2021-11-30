@@ -63,6 +63,15 @@ public class AlocarController {
 		
 		return modelAndView; // addObject adiciona objetos para view
 	}
+	
+	@GetMapping("/boleto/{id}")
+	public ModelAndView geraBoleto(@PathVariable("id") Long id) {
+		Alocar alocacao = servico.findById(id);
+		ModelAndView modelAndView = new ModelAndView("boleto");
+		modelAndView.addObject("alocar", servico.findById(id));
+		
+		return modelAndView;
+	}
 
 	
 

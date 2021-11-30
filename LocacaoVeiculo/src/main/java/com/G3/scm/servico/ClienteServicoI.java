@@ -85,7 +85,9 @@ public class ClienteServicoI implements ClienteServico {
 		message.setFrom("locacaodadelicia@gmail.com");
 		message.setTo(cliente.getEmail());
 		message.setSubject("Confirmação do cadastro de cliente");
-		message.setText("Seu cadastro foi realizado - " + cliente.toString());
+		message.setText("Seu cadastro foi realizado - " + cliente.getNome() +"\n"
+				+ "Endereço (Bairro): " + cliente.getEndereco().getBairro() +"\n"
+						+ "Data de cadastro: " + cliente.getDataCadastro());
 		try {
 			mailSender.send(message); 
 			logger.info(">>>>>> 5. Envio do e-mail processado com sucesso."); 

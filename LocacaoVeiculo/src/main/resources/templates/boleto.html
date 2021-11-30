@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel= "stylesheet" th:href="@{/css/boletoStyle.css}" />
+	</head>
+	<body>
+	<main th:object="${alocar}">
+		<div id="logoBoleto">
+			<img th:src="@{/images/logoItau.png}" />
+		</div>
+		<div id="codigoBoleto">
+			<div id="valorTotal">
+				<p>Valor total: <p th:text="${alocar.valorTotal}"> </p> </p>
+			</div>
+			
+			<div id="identificacaoBoleto">
+				<p>0000000000 00000000000 00000000000 00000000000</p>
+			</div>
+			
+		</div>
+		<div id="informacoesAlocacao">
+			<div id="informacoesCliente">
+				<p th:text="${alocar.cliente.nome}"></p>
+				<p th:text="${alocar.cliente.cpf}"></p>
+				
+			</div>
+			<div id="informacoesVeiculo">
+				<p th:text="${alocar.veiculo.nome}"></p>
+				<p th:text="${alocar.veiculo.placa}"></p>
+			</div>
+		</div>
+		
+		<div id="codigoBarra">
+			<img th:src="@{/images/codigoBarra.jpg}" />
+		</div>
+	</main>
+	</body>
+</html>
+

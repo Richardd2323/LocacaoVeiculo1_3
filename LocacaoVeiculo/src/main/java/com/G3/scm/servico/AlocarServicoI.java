@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +24,8 @@ public class AlocarServicoI implements AlocarServico {
 	private ClienteServico servicoC;
 	@Autowired
 	private VeiculoServico servicoV;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	public Iterable<Alocar> findAll() {
 		return alocarRepository.findAll();
@@ -57,6 +61,7 @@ public class AlocarServicoI implements AlocarServico {
 				veiculo.setDataCadastro(new DateTime());
 				alocarRepository.save(alocacao);
 				logger.info(">>>>>> 4. comando save executado  ");
+				sendMail(alocacao); 
 				modelAndView.addObject("alocados", alocarRepository.findAll());
 			}
 			else {
@@ -99,5 +104,24 @@ public class AlocarServicoI implements AlocarServico {
 			
 		 
 		return modelAndView;
+	}
+	
+	public String sendMail(Alocar alocacao) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("locacaodadelicia@gmail.com");
+		message.setTo(alocacao.getCliente().getEmail());
+		message.setSubject("Confirmação do cadastro de cliente");
+		message.setText("Olá " + alocacao.getCliente().getNome() +", reserva efetuada com sucesso"
+				+ " do veiculo " + alocacao.getVeiculo().getNome() + " Placa: " + alocacao.getVeiculo().getPlaca());
+		try {
+			mailSender.send(message); 
+			logger.info(">>>>>> 5. Envio do e-mail processado com sucesso."); 
+			return "Email enviado"; 
+		} catch(Exception e) {
+			 e.printStackTrace();
+			 return "Erro ao enviar e-mail."; 
+		}
+		
+		
 	}
 }

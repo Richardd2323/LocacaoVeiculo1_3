@@ -24,25 +24,28 @@
 				</div>
 				<br>
 				
-				<!--<label for="txtDesalDtDevolucao">Data de devolução: </label>
-				<label for="saDesalDtDevolucao" id="desalDtDevolucao" name="desalDtDevolucao">xxxxxxxxxxxxxxxxx</label><br><br> -->
+				
 				
 				<label for="txtDesalDtEntrega">Data de entrega: </label>
 				<label for="saDesalDtEntrega" th:text="${alocar.dtEntregaFormat}" id="desalDtEntrega" name="desalDtEntrega"></label><br><br>
 				
-				<!--<label for="txtDesalKmAtual">Km atual do veiculo: </label>
-				<input type="number" id="saDesalKmAtual" name="saDesalKmAtual"><br><br>
-				<label for="txtDesalValorAdicional">Valor adicional: </label>
-				<label for="saDesalValorAdicional" id="desalValorAdicional" name="desalValorAdicional">xxxxxxxxxxxx</label>
-				<input type="checkbox" id="valorCalchao" name="valorCalchao">
-				<label for="valorCalchao">Devolver calchão</label><br><br> -->
+				
 				
 				<div id="botaoConfirma">
-					<input type="submit" onclick="alert('Imagine um boleto sendo gerado nesse momento');" value="Desalocar/Gerar boleto" id="confirmarCadastro" name="confirmarCadastro">
+					<input type="submit" value="Desalocar" id="confirmarCadastro" name="confirmarCadastro" disabled>
+					<a onclick="liberar(this)" th:href="@{/sig/boleto/{id}(id=${alocar.id})}" target="_blank">Boleto</a>
 				</div>
 				
 			</form>
 		</div>
 		</div>
+		
+		<script>
+		var botaoDesaloca = document.getElementById('confirmarCadastro')
+		
+		function liberar(obj) {
+			botaoDesaloca.disabled = false;
+		}
+		</script>
 	</body>
 </html>

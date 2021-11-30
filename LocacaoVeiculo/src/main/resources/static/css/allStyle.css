@@ -61,7 +61,7 @@ body {
 	margin: auto;
 	margin-left: 25%;
 	padding: 0;
-	width: 55%;
+	width: 60%;
 	text-align: center;
 	
 }
@@ -108,6 +108,19 @@ body {
 .Menu #formulario form #botaoConfirma{
 	text-align: center;
 }
+
+.Menu #formulario form #botaoConfirma a{
+	margin-left: 5px;
+	text-decoration: none;
+	border: 1px solid black;
+	color: black;
+	background-color: #A9A4A4;
+	font-weight: bold;
+	font-size: 22px;
+	border-radius: 5px;
+	width: 300px;
+}
+
 .Menu #formulario form #confirmarCadastro{
 	font-size: 20px;
 	font-weight: bold;
@@ -180,6 +193,12 @@ body {
 	font-size: 20px;
 	color:red;
 	text-align: center;
+}
+
+.textdanger{
+	font-family: Arial, Helvetica, sans-serif;
+	color:red;
+	
 }
 
 
