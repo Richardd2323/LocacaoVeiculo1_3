@@ -32,9 +32,9 @@
 						<tr th:each="alocar : ${alocados}">
 							<td th:text="${alocar.id}"></td>
 							<td th:text="${alocar.clienteCpf}"></td>
-							<td th:text="${alocar.cliente.nome}"></td>
+							<td th:text="${alocar.clienteNome}"></td>
 							<td th:text="${alocar.veiculoPlaca}"></td>
-							<td th:text="${alocar.veiculo.nome}"></td>
+							<td th:text="${alocar.veiculoNome}"></td>
 							<td th:text="${alocar.dtInicioFormat}"></td>
 							<td th:text="${alocar.dtEntregaFormat}"></td>
 							<td th:text="${alocar.valorTotal}"></td>

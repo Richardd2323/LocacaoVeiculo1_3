@@ -45,8 +45,6 @@ public class AlocarServicoI implements AlocarServico {
 		Cliente cliente = servicoC.findByCpf(alocacao.getClienteCpf());
 		Veiculo veiculo = servicoV.findByPlaca(alocacao.getVeiculoPlaca());
 		if(cliente != null || veiculo != null) {
-			alocacao.setCliente(cliente);
-			alocacao.setVeiculo(veiculo);
 			alocacao.setDtInicio(alocacao.getDtInicioFormat());
 			alocacao.setDtEntrega(alocacao.getDtEntregaFormat());
 			int verifDataEntrega =  alocacao.getDtEntrega().getDayOfYear(); 
@@ -55,6 +53,8 @@ public class AlocarServicoI implements AlocarServico {
 				float valorT = (verifDataEntrega - verifDataInicio) * veiculo.getValorDiaria();
 				alocacao.setValorTotal(valorT);
 				alocacao.setSituacao(true);
+				alocacao.setClienteNome(cliente.getNome());
+				alocacao.setVeiculoNome(veiculo.getNome());
 				cliente.setAlocacao(true);
 				veiculo.setLocado(true);
 				cliente.setDataCadastro(new DateTime());
@@ -107,12 +107,14 @@ public class AlocarServicoI implements AlocarServico {
 	}
 	
 	public String sendMail(Alocar alocacao) {
+		Cliente cliente = servicoC.findByCpf(alocacao.getClienteCpf());
+		Veiculo veiculo = servicoV.findByPlaca(alocacao.getVeiculoPlaca());
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("locacaodadelicia@gmail.com");
-		message.setTo(alocacao.getCliente().getEmail());
+		message.setTo(cliente.getEmail());
 		message.setSubject("Confirmação do cadastro de cliente");
-		message.setText("Olá " + alocacao.getCliente().getNome() +", reserva efetuada com sucesso"
-				+ " do veiculo " + alocacao.getVeiculo().getNome() + " Placa: " + alocacao.getVeiculo().getPlaca());
+		message.setText("Olá " + cliente.getNome() +", reserva efetuada com sucesso"
+				+ " do veiculo " + veiculo.getNome() + " Placa: " + veiculo.getPlaca());
 		try {
 			mailSender.send(message); 
 			logger.info(">>>>>> 5. Envio do e-mail processado com sucesso."); 

@@ -23,15 +23,11 @@ public class Alocar {
 	private Long id;
 	@CPF(message = "CPF invalido")
 	private String clienteCpf;
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	private String clienteNome;
 	@NotNull
 	@Size(min = 7, max = 7, message = "Placa invalida")
 	private String veiculoPlaca;
-	@ManyToOne
-	@JoinColumn(name = "veiculo_id")
-	private Veiculo veiculo;
+	private String veiculoNome;
 	private boolean situacao;
 	private String dtInicioFormat;
 	@NotNull
@@ -113,18 +109,19 @@ public class Alocar {
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	public Cliente getCliente() {
-		return cliente;
+	public String getClienteNome() {
+		return clienteNome;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setClienteNome(String clienteNome) {
+		this.clienteNome = clienteNome;
 	}
-	public Veiculo getVeiculo() {
-		return veiculo;
+	public String getVeiculoNome() {
+		return veiculoNome;
 	}
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setVeiculoNome(String veiculoNome) {
+		this.veiculoNome = veiculoNome;
 	}
+	
 	
 	
 	

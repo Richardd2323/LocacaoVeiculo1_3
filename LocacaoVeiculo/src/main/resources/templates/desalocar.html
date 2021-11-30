@@ -14,13 +14,12 @@
 				<input type="number" th:field="*{clienteCpf}" id="alCpfCliente" name="alCpfCliente"><br><br>
 				<div id="desalConsulVeiculo">
 					<label for="txtDesalNomeVeiculo">Fabricante do veiculo: </label>
-					<label for="saDesalNomeVeiculo" th:text="${alocar.veiculo.nome}" id="desalNomeVeiculo" name="desalNomeVeiculo"></label><br>
+					<label for="saDesalNomeVeiculo" th:text="${alocar.veiculoNome}" id="desalNomeVeiculo" name="desalNomeVeiculo"></label><br>
 					
 					<label for="txtDesalPlacaVeiculo">Placa do veiculo: </label>
 					<label for="saDesalPlacaVeiculo" th:text="${alocar.veiculoPlaca}" id="desalPlacaVeiculo" name="desalPlacaVeiculo"></label><br>
 					
-					<label for="txtDesalCodigoVeiculo">Codigo do veiculo: </label>
-					<label for="saDesalCodigoVeiculo" th:text="${alocar.veiculo.id}" id="desalCodigoVeiculo" name="desalCodigoVeiculo"></label>
+					
 				</div>
 				<br>
 				
